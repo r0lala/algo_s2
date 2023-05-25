@@ -14,40 +14,99 @@ struct SearchTreeNode : public Node
     SearchTreeNode* right;
     int value;
 
-    void initNode(int value)
-    {
+    // il faut faire de la récursion sur l'ensemble des fonctions sauf la première
+
+    void initNode(int value){
         // init initial node without children
+        this->value = value;
+        this->left = nullptr;
+        this->right = nullptr;
     }
 
 	void insertNumber(int value) {
         // create a new node and insert it in right or left child
+
+        if(value < this){
+            if(this->left == nullptr){
+                Node* noeud = new Node(value);
+                this->left= noeud;
+            }else{
+                this->left->insertNumber(value);
+            }
+        }else if(value > this){
+            if(this->right == nullptr){
+                Node* noeud = new Node(value);
+                this->right= noeud;
+            }else{
+                this->right-> insertNumber(value);
+            }
+        }
     }
 
 	uint height() const	{
         // should return the maximum height between left child and
         // right child +1 for itself. If there is no child, return
         // just 1
-        return 1;
+
+        if(this->left == nullptr && this->right == nullptr){
+            return 1;
+        }else if(this->left != nullptr && this->right != nullptr){
+            return 1 + std::max(this->left->height(),this->max->height())
+        }else if(this->right != nullptr){
+            return 1 + this->right->height();
+        }else if(this->left != nullptr){
+            return 1 + this->left->height();
+        }
     }
 
 	uint nodesCount() const {
         // should return the sum of nodes within left child and
         // right child +1 for itself. If there is no child, return
         // just 1
-        return 1;
-	}
+
+        if(this->left == nullptr && this->right == nullptr){
+            return 1;
+        }else if(this->left != nullptr && this->right != nullptr){
+            return 1 + this->left->nodesCount() + this->right->nodesCount();
+        }else if(this->right != nullptr){
+            return 1 + this->right->nodesCount();
+        }else if(this->left != nullptr){
+            return 1 + this->left->nodesCount();
+        }
+    }
 
 	bool isLeaf() const {
         // return True if the node is a leaf (it has no children)
-        return false;
-	}
+
+        if(this->left == nullptr && this->right == nullptr){
+            return true;
+        }else{
+            return false;
+	    }
+    }
 
 	void allLeaves(Node* leaves[], uint& leavesCount) {
         // fill leaves array with all leaves of this tree
+        if(this->left == nullptr && this->right == nullptr){
+            leaves[leavesCount] = this;
+            leavesCount ++;
+        }else if(this->left !=nullptr){
+            this->left->allLeaves(leaves, leavesCount);
+        }else if(this->right !=nullptr){
+            this->right->allLeaves(leaves, leavesCount);
+        }
 	}
 
 	void inorderTravel(Node* nodes[], uint& nodesCount) {
         // fill nodes array with all nodes with inorder travel
+         if(this->left == nullptr && this->right == nullptr){
+            nodes[nodesCount] = this;
+            nodesCount ++;
+        }else if(this->left !=nullptr){
+            this->left->inorderTravel(nodes, nodesCount);
+        }else if(this->right !=nullptr){
+            this->right->inorderTravel(nodes, nodesCount);
+        }
 	}
 
 	void preorderTravel(Node* nodes[], uint& nodesCount) {
@@ -62,7 +121,7 @@ struct SearchTreeNode : public Node
         // find the node containing value
 		return nullptr;
 	}
-
+SearchTreeNode(int value) : Node(value) {initNode(value);}
     void reset()
     {
         if (left != NULL)
