@@ -15,7 +15,47 @@ using std::size_t;
 void binarySearchAll(Array& array, int toSearch, int& indexMin, int& indexMax)
 {
 	// do not use increments, use two different binary search loop
-    indexMin = indexMax = -1;
+	int end = array.size();
+	int start = 0;
+    int middle = 0;
+
+	indexMin = indexMax = -1;
+
+    while(start < end){
+        middle = (start+end)/2;
+
+		if (toSearch>array[middle]){
+            start = middle +1;
+        }
+        else if(toSearch<array[middle]){
+            end = middle;
+        }
+        else{
+            //mettre à jour le indexmin puis le end 
+			indexMin = middle;
+			end = middle;
+		}
+	}
+
+    int end = array.size();
+    int start = 0;
+    int middle = 0;
+
+	while(start < end){
+        middle = (start+end)/2;
+
+		if (toSearch>array[middle]){
+            start = middle +1;
+        }
+        else if(toSearch<array[middle]){
+            end = middle;
+        }
+        else{
+            //mettre à jour indexmax et start
+			indexMax = middle;
+            start = middle +1;
+		}
+	}
 }
 
 int main(int argc, char *argv[])
