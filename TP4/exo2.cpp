@@ -56,9 +56,11 @@ void processCharFrequences(string data, Array& frequences)
       * frequences is an array of 256 int. frequences[i]
       * is the frequence of the caracter with ASCII code i
      **/
-
     // Your code
     frequences.fill(0);
+    for(int i=0 ; i<data.length(); i++){
+        frequences[data[i]]+=1;
+    }
 }
 
 void HuffmanHeap::insertHeapNode(int heapSize, HuffmanNode* newNode)
@@ -75,6 +77,12 @@ void HuffmanHeap::insertHeapNode(int heapSize, HuffmanNode* newNode)
     // Your code
     int i = heapSize;
 
+    newNode = this->get(i);
+	while (i > 0 && this->get(i) < this->get((i - 2) / 2))
+	{
+		this->swap(i, (i - 1) / 2);
+		i = (i - 2) / 2;
+	}
 }
 
 void buildHuffmanHeap(const Array& frequences, HuffmanHeap& priorityMinHeap, int& heapSize)
@@ -88,6 +96,13 @@ void buildHuffmanHeap(const Array& frequences, HuffmanHeap& priorityMinHeap, int
     // Your code
     heapSize = 0;
 
+    for(int i=0; i<frequences.size() ; i++){
+        if(frequences.get(i) != 0){
+            HuffmanNode* n_node=new HuffmanNode(i, frequences[i]);
+            priorityMinHeap.insertHeapNode(heapSize, n_node);
+            heapSize ++;
+        }
+    }
 }
 
 void HuffmanHeap::heapify(int heapSize, int nodeIndex)
@@ -99,6 +114,23 @@ void HuffmanHeap::heapify(int heapSize, int nodeIndex)
       * you can use `this->swap(firstIndex, secondIndex)`
      **/
     // Your code
+
+    int i_min = nodeIndex;
+
+    int rightChild =  nodeIndex*2+2;
+    int leftChild =  nodeIndex*2+1;
+
+	if(leftChild<heapSize && this->get(nodeIndex)->frequences>this->get(leftChild)->frequences){
+			i_min=leftChild;
+	}
+	if(rightChild<heapSize && this->get(i_min)->frequences>this->get(rightChild)->frequences){
+			i_min=rightChild;
+	}
+
+	if(i_min!=nodeIndex){
+		this->swap(nodeIndex, i_min);
+		this->heapify(heapSize, i_min);
+	}
 
 }
 
@@ -112,6 +144,11 @@ HuffmanNode* HuffmanHeap::extractMinNode(int heapSize)
      **/
 
     // Your code
+    HuffmanNode* cell_one =this->get(0);
+    this->swap(0, heapSize-1);
+    this->heapify(heapSize, 0);
+
+    return cell_one;
 }
 
 HuffmanNode* makeHuffmanSubTree(HuffmanNode* rightNode, HuffmanNode* leftNode)
@@ -123,7 +160,13 @@ HuffmanNode* makeHuffmanSubTree(HuffmanNode* rightNode, HuffmanNode* leftNode)
      * Return the new HuffmanNode* parent
      **/
     // Your code
-    return new HuffmanNode('\0');
+
+    HuffmanNode* new_n = new HuffmanNode('\0');
+    new_n->left = leftNode;
+    new_n->right = rightNode;
+    new_n->frequences= leftNode->frequences + rightNode->frequences;
+
+    return new_n;
 }
 
 HuffmanNode* buildHuffmanTree(HuffmanHeap& priorityMinHeap, int heapSize)
@@ -136,7 +179,14 @@ HuffmanNode* buildHuffmanTree(HuffmanHeap& priorityMinHeap, int heapSize)
      **/
 
     // Your code
-    return new HuffmanNode('?');
+    while(heapSize>1){
+        HuffmanNode* child_one = priorityMinHeap.extractMinNode(heapSize);
+        HuffmanNode* child_two = priorityMinHeap.extractMinNode(heapSize);
+        HuffmanNode* parent = makeHuffmanSubTree(child_one,child_two);
+        priorityMinHeap.insertHeapNode(heapSize, parent);
+        heapSize--;
+    }
+    return priorityMinHeap.get(0);
 }
 
 void HuffmanNode::processCodes(const std::string& baseCode)
@@ -150,6 +200,11 @@ void HuffmanNode::processCodes(const std::string& baseCode)
      **/
 
     // Your code
+    int i=0;
+    if (this->)
+
+
+    
 }
 
 void HuffmanNode::fillCharactersArray(std::string charactersCodes[])
@@ -184,7 +239,6 @@ string huffmanEncode(const string& toEncode, HuffmanNode* huffmanTree)
     return encoded;
 }
 
-
 string huffmanDecode(const string& toDecode, const HuffmanNode& huffmanTreeRoot)
 {
     /**
@@ -194,7 +248,22 @@ string huffmanDecode(const string& toDecode, const HuffmanNode& huffmanTreeRoot)
      **/
     // Your code
     string decoded = "";
-
+    HuffmanNode noeud = huffmanTreeRoot;
+    uint i = 0;
+    while(i < toDecode.length()){
+        if(noeud.isLeaf()){
+            decoded += noeud.character;
+            noeud = huffmanTreeRoot;
+        }else{
+            if(toDecode.at(i) == '0'){
+                noeud = noeud->left;
+            }else{
+                noeud = noeud->right;
+            }
+            i++;
+        }
+    }
+    decoded += noeud.character;
     return decoded;
 }
 
