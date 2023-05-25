@@ -2,8 +2,8 @@
 #include <QString>
 #include <time.h>
 #include <stdio.h>
-#include <iostream>
 #include <string>
+#include <math.h>
 
 #include <tp5.h>
 
@@ -24,7 +24,14 @@ std::vector<string> TP5::names(
 unsigned long int hash(string key)
 {
     // return an unique hash id from key
-    return 0;
+    int i = 0;
+	unsigned long int hash_value = 0;
+	while(key[i] != '\0')
+	{
+		hash_value += key[i]*std::pow(128, i);
+        i++;
+	}
+	return hash_value;
 }
 
 struct MapNode : public BinaryTree
@@ -53,12 +60,46 @@ struct MapNode : public BinaryTree
      */
     void insertNode(MapNode* node)
     {
-
+        if(node->key_hash < this->key_hash){ //si la clé de hashage du noeud que je veux insérer < à mon noeud actuel
+            if(this->left == nullptr){ // si son enfant droit est vide
+                this->left= node; // mettre le noeud ici
+            }else{
+                this->left->insertNode(node); // sinon récursion
+            }
+        }else{ 
+            if(this->right == nullptr){
+                this->right= node;
+            }else{
+                this->right-> insertNode(node);
+            }
+        }
     }
 
-    void insertNode(string key, int value)
+    void insertNode(string key, int value) // crée un  noeud
     {
         this->insertNode(new MapNode(key, value));
+    }
+
+    int getVal(string key){
+        
+        unsigned long int hash_value = hash(key);
+        
+        if(hash_value == this->key_hash){
+            return this-> value;
+        }else{
+            if(this->left != nullptr){
+                int left = this->left->get(key);
+                
+                if(left != 0){
+                    return left;
+                }
+
+            }else if(this->right != nullptr){
+                return this->right->get(key);
+            }else if {
+                return 0;
+            }
+        }
     }
 
     virtual ~MapNode() {}
@@ -69,6 +110,7 @@ struct MapNode : public BinaryTree
 
 struct Map
 {
+    MapNode* root;
     Map() {
         this->root = nullptr;
     }
@@ -80,7 +122,13 @@ struct Map
      */
     void insert(string key, int value)
     {
-
+        if(root != nullptr){
+            //créer un new node
+            this->root->insertNode(key, value);
+        }else{
+            //créer un nouveau noeud dans la root
+            this->root=new MapNode(key, value);
+        }
     }
 
     /**
@@ -90,10 +138,9 @@ struct Map
      */
     int get(string key)
     {
-        return -1;
+        return this->root->getVal(key);
     }
 
-    MapNode* root;
 };
 
 
@@ -101,7 +148,6 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 	Map map;
-    std::vector<std::string> inserted;
 
     map.insert("Yolo", 20);
     for (std::string& name : TP5::names)
@@ -109,7 +155,6 @@ int main(int argc, char *argv[])
         if (rand() % 3 == 0)
         {
             map.insert(name, rand() % 21);
-            inserted.push_back(name);
         }
     }
 
@@ -120,12 +165,6 @@ int main(int argc, char *argv[])
     printf("map[\"Yolo\"]=%d\n", map.get("Yolo"));
     printf("map[\"Tanguy\"]=%d\n", map.get("Tanguy"));
 
-    printf("\n");
-    for (size_t i=0; i<inserted.size()/2; i++)
-        printf("map[\"%s\"]=%d\n", inserted[i].c_str(), map.get(inserted[i]));
-
-
-    std::cout.flush();
 
     QApplication a(argc, argv);
     MainWindow::instruction_duration = 200;
