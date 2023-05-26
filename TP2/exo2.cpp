@@ -7,9 +7,20 @@ MainWindow* w=nullptr;
 
 void insertionSort(Array& toSort){
 	Array& sorted=w->newArray(toSort.size());
+    int size = toSort.size();
 
 	// insertion sort from toSort to sorted
-	
+    sorted[0] = toSort[0];
+    for(int i=1; i < size ; i++)
+    {   
+        int position =0;
+        while(position < i && toSort.get(i)>sorted.get(position))
+        {
+          position++;
+        }
+        sorted.insert(position,toSort.get(i));
+
+    }
 	toSort=sorted; // update the original array
 }
 
