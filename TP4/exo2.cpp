@@ -244,12 +244,15 @@ string huffmanEncode(const string &toEncode, HuffmanNode *huffmanTree)
     huffmanTree->fillCharactersArray(charactersCodes);
     string encoded = "";
 
-    uint i=0;
+    int i=0;
     while(i<toEncode.length()){
-        
-    }
-
-        return encoded;
+        int lettre = toEncode[i];
+    
+        HuffmanNode *noeud =huffmanTree->characters[lettre];
+        encoded += noeud->code;
+        i++;
+    }   
+    return encoded;
 }
 
 string huffmanDecode(const string &toDecode, const HuffmanNode &huffmanTreeRoot)
@@ -262,14 +265,14 @@ string huffmanDecode(const string &toDecode, const HuffmanNode &huffmanTreeRoot)
     // Your code
     string decoded = "";
     HuffmanNode noeud = huffmanTreeRoot;
-    uint i=0;
+    
+    int i=0;
     while(i < toDecode.length()){
-        if (noeud.isLeaf()){
+        if (noeud.isLeaf()==true){
             decoded += noeud.character;
             noeud = huffmanTreeRoot;
         }else{
-            if (toDecode.at(i) == '0')
-            {
+            if (toDecode[i] == '0'){
                 noeud = noeud->left;
             }else{
                 noeud = noeud->right;
