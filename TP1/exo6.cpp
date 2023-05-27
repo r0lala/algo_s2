@@ -16,6 +16,7 @@ struct Liste{
 struct DynaTableau{
     int* donnees;
     int size;
+    int capacite;
     
 };
 
@@ -93,27 +94,49 @@ void stocke(Liste* liste, int n, int valeur){
 }
 
 void ajoute(DynaTableau* tableau, int valeur){
+    if(tableau->size < tableau->capacite){
+        tableau->donnees[tableau->size]=valeur; // j'ajoute un élément dans le tableau
+        tableau->size++; // donc size augmente de un
+    }else{
 
+    }
 }
 
 
 void initialise(DynaTableau* tableau, int capacite){
-
+    tableau->capacite=capacite;// si j'ai bien compris : capacité maximale
+    tableau->size=0;// taille actuelle
+    tableau->donnees= new int[capacite];
 }
 
 bool est_vide(const DynaTableau* liste){
-    return false;
+    if(liste->size==0){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 void affiche(const DynaTableau* tableau){
-
+    for(int i=0 ; i<tableau->size ; i++){
+        cout<<"Donnée à l'index "<<i<<" : "<<tableau->donnees[i]<<endl;
+    }
 }
 
 int recupere(const DynaTableau* tableau, int n){
-    return 0;
+    if(n<tableau->size){
+        return tableau->donnees[n];
+    }else{
+        return 0;
+    }
 }
 
 int cherche(const DynaTableau* tableau, int valeur){
+    for(int i=0 ; i<tableau->size ; i++){
+        if(tableau->donnees[i]==valeur){
+            return i;
+        }
+    }
     return -1;
 }
 
