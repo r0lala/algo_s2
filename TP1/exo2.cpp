@@ -11,7 +11,8 @@ int fibonacci(int value)
     // your code
     if(value==0){
         return 0;
-    }if (value==1){
+    }
+    if (value==1){
         return 1;
     }else{
         return_and_display(fibonacci(value-1) + fibonacci(value-2));
