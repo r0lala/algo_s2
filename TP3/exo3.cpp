@@ -99,9 +99,9 @@ struct SearchTreeNode : public Node
 
 	void inorderTravel(Node* nodes[], uint& nodesCount) {
         // fill nodes array with all nodes with inorder travel
-         if(this->left == nullptr && this->right == nullptr){
+        if(this->left == nullptr && this->right == nullptr){
             nodes[nodesCount] = this;
-            nodesCount ++;
+            nodesCount++;
         }else if(this->left !=nullptr){
             this->left->inorderTravel(nodes, nodesCount);
         }else if(this->right !=nullptr){
@@ -111,10 +111,25 @@ struct SearchTreeNode : public Node
 
 	void preorderTravel(Node* nodes[], uint& nodesCount) {
         // fill nodes array with all nodes with preorder travel
+        nodes[nodesCount] = this;
+        nodesCount++;
+        if(this->left !=nullptr){
+            this->left->preorderTravel(nodes, nodesCount);
+        }if (this->right !=nullptr){
+            this->right->preorderTravel(nodes, nodesCount);
+        }
 	}
 
 	void postorderTravel(Node* nodes[], uint& nodesCount) {
         // fill nodes array with all nodes with postorder travel
+        if(this->left!=nullptr){
+            this->left->postorderTravel(nodes,nodesCount);
+        }if(this->right!= nullptr){
+            this->right->postorderTravel(nodes, nodesCount);
+        }
+        nodes[nodesCount] =this;
+        nodesCount++;
+
 	}
 
 	Node* find(int value) {

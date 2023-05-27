@@ -7,6 +7,7 @@
         "unordered_map": "cpp",
         "vector": "cpp",
         "functional": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "random": "cpp"
     }
 }
