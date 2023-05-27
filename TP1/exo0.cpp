@@ -8,8 +8,7 @@ int sum(int n)
 {
     Context _("sum", n); // do not care about this, it allow the display of call stack
 
-    if (n > 1)
-    {
+    if (n > 1){
         return_and_display(n + sum(n-1));
     }
     return_and_display(n);
