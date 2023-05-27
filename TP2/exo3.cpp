@@ -9,10 +9,10 @@ MainWindow* w=nullptr;
 void bubbleSort(Array& toSort){
     int size = toSort.size();
 
-	for(int j=0 ; j < size ; j++){
-		for(int i=j+1 ; i < size ; i++){
-			if(toSort.get(i)>toSort.get(j)){
-				toSort.swap(j, i);
+	for(int j=0 ; j < size-1 ; j++){
+		for(int i=0 ; i < size-1 ; i++){
+			if(toSort.get(i)>toSort.get(i+1)){
+				toSort.swap(i, i+1);
 			}
 		}
 	}
