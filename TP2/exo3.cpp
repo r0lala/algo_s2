@@ -7,12 +7,14 @@ MainWindow* w=nullptr;
 
 
 void bubbleSort(Array& toSort){
-	int index_min=0;
     int size = toSort.size();
 
-	for(int i=0 ; i < size ; i++){
-		
-	
+	for(int j=0 ; j < size ; j++){
+		for(int i=j+1 ; i < size ; i++){
+			if(toSort.get(i)>toSort.get(j)){
+				toSort.swap(j, i);
+			}
+		}
 	}
 }
 
