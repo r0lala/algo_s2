@@ -94,12 +94,16 @@ void stocke(Liste* liste, int n, int valeur){
 }
 
 void ajoute(DynaTableau* tableau, int valeur){
-    if(tableau->size < tableau->capacite){
-        tableau->donnees[tableau->size]=valeur; // j'ajoute un élément dans le tableau
-        tableau->size++; // donc size augmente de un
-    }else{
+    if(tableau->size==tableau->capacite){
+        tableau->capacite*=2;
+        int* tab=new int[tableau->capacite];
 
+        for(int i=0 ; i<tableau->size ; i++){
+            tab[i]=tableau->donnees[i];
+        }
     }
+    tableau->donnees[tableau->size]=valeur; // j'ajoute un élément dans le tableau
+    tableau->size++; // donc size augmente de un
 }
 
 
@@ -160,7 +164,7 @@ int retire_file(Liste* liste){
     
     liste->first=liste->first->next;
     liste->size--;
-    delete(noeud);
+    delete[] noeud;
 
     return contenu;
 }
@@ -177,7 +181,7 @@ int retire_pile(Liste* liste){
     
     liste->first=liste->first->next;
     liste->size--;
-    delete(noeud);
+    delete[] noeud;
 
     return contenu;
 }
