@@ -141,27 +141,45 @@ int cherche(const DynaTableau* tableau, int valeur){
 }
 
 void stocke(DynaTableau* tableau, int n, int valeur){
-
+    if(n<tableau->size){
+        tableau->donnees[n]= valeur;
+    }else{
+        cout<<"L'emplacement "<<n<<" n'existe pas."<<endl;
+    }
 }
 
 //void pousse_file(DynaTableau* liste, int valeur)
 void pousse_file(Liste* liste, int valeur){
-
+    ajoute(liste, valeur); // à confirmer ? 
 }
 
 //int retire_file(Liste* liste)
 int retire_file(Liste* liste){
-    return 0;
+    Noeud* noeud = liste->first;
+    int contenu = noeud->donnee;
+    
+    liste->first=liste->first->next;
+    liste->size--;
+    delete(noeud);
+
+    return contenu;
 }
 
 //void pousse_pile(DynaTableau* liste, int valeur)
 void pousse_pile(Liste* liste, int valeur){
-
+    ajoute(liste, valeur); // à confirmer ? 
 }
 
 //int retire_pile(DynaTableau* liste)
 int retire_pile(Liste* liste){
-    return 0;
+    Noeud* noeud = liste->first;
+    int contenu = noeud->donnee;
+    
+    liste->first=liste->first->next;
+    liste->size--;
+    delete(noeud);
+
+    return contenu;
 }
 
 
