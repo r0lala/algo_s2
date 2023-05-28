@@ -77,7 +77,6 @@ struct SearchTreeNode : public Node
 
 	bool isLeaf() const {
         // return True if the node is a leaf (it has no children)
-
         if(this->left == nullptr && this->right == nullptr){
             return true;
         }else{
@@ -99,13 +98,13 @@ struct SearchTreeNode : public Node
 
 	void inorderTravel(Node* nodes[], uint& nodesCount) {
         // fill nodes array with all nodes with inorder travel
-        if(this->left == nullptr && this->right == nullptr){
-            nodes[nodesCount] = this;
-            nodesCount++;
-        }else if(this->left !=nullptr){
-            this->left->inorderTravel(nodes, nodesCount);
-        }else if(this->right !=nullptr){
-            this->right->inorderTravel(nodes, nodesCount);
+        if(this->left !=nullptr){
+            this->left->preorderTravel(nodes, nodesCount);
+        }
+        nodes[nodesCount] = this;
+        nodesCount++;
+        if (this->right !=nullptr){
+            this->right->preorderTravel(nodes, nodesCount);
         }
 	}
 
@@ -129,7 +128,6 @@ struct SearchTreeNode : public Node
         }
         nodes[nodesCount] =this;
         nodesCount++;
-
 	}
 
 	Node* find(int value) {
