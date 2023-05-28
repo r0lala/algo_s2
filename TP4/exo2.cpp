@@ -121,17 +121,14 @@ void HuffmanHeap::heapify(int heapSize, int nodeIndex)
     int rightChild = nodeIndex * 2 + 2;
     int leftChild = nodeIndex * 2 + 1;
 
-    if (leftChild<heapSize &&this->get(nodeIndex)->frequences> this->get(leftChild)->frequences)
-    {
+    if (leftChild<heapSize &&this->get(nodeIndex)->frequences> this->get(leftChild)->frequences){
         i_min = leftChild;
     }
-    if (rightChild<heapSize &&this->get(i_min)->frequences> this->get(rightChild)->frequences)
-    {
+    if (rightChild<heapSize &&this->get(i_min)->frequences> this->get(rightChild)->frequences){
         i_min = rightChild;
     }
 
-    if (i_min != nodeIndex)
-    {
+    if (i_min != nodeIndex){
         this->swap(nodeIndex, i_min);
         this->heapify(heapSize, i_min);
     }
@@ -246,10 +243,7 @@ string huffmanEncode(const string &toEncode, HuffmanNode *huffmanTree)
 
     int i=0;
     while(i<toEncode.length()){
-        int lettre = toEncode[i];
-    
-        HuffmanNode *noeud =huffmanTree->characters[lettre];
-        encoded += noeud->code;
+        encoded += charactersCodes[int(toEncode[i])];
         i++;
     }   
     return encoded;
