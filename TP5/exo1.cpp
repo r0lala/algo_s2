@@ -14,7 +14,7 @@ std::vector<string> TP5::names(
     "Fanny", "Jeanne", "Elo"
 });
 
-
+// A partir de ce TP, j'ai beaucoup travaillé en classe avec Sara Lafleur (les codes vont surement être très ressemblant)
 int HashTable::hash(std::string element)
 {
     // use this->size() to get HashTable size

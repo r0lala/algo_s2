@@ -47,6 +47,7 @@ void main_function(HuffmanNode *&huffmanTree)
     qDebug("Decoded: %s\n", decoded.c_str());
 }
 
+// J'ai travaillé sur le début de ce tp avec Sara Lafleur
 void processCharFrequences(string data, Array &frequences)
 {
     /**
