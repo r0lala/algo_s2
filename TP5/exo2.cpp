@@ -87,13 +87,13 @@ struct MapNode : public BinaryTree
             return this-> value;
         }else{
             if(this->left != nullptr){
-                int left = this->left->get(key);
+                int left = this->left->getVal(key);
                 
                 if(left != 0){
                     return left;
                 }
             }else if(this->right != nullptr){
-                return this->right->get(key);
+                return this->right->getVal(key);
             }else if{
                 return 0;
             }
