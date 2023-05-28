@@ -53,7 +53,7 @@ void affiche(const Liste* liste){
         cout<<"La liste est vide"<<endl; 
     }else{
         Noeud* noeud=liste->first;
-        while(noeud->next!=nullptr){ // tant qu'il y a un noeud après
+        while(noeud!=nullptr){ // tant qu'il y a un noeud après
             cout<<"Noeud : "<<noeud<<" || valeur : "<<noeud->donnee<<endl; // on affiche
             noeud=noeud->next;
         }
@@ -65,8 +65,8 @@ int recupere(const Liste* liste, int n){
         return -1;
     }else{
         Noeud* noeud = liste->first;
-
-        while(int i=0 ; i<n-1 ; i++){
+        
+        for(int i=0 ; i<n ; i++){
             noeud=noeud->next;
         }
         return noeud->donnee;
