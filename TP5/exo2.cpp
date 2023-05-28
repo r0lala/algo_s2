@@ -93,7 +93,7 @@ struct MapNode : public BinaryTree
                     return left;
                 }
             }if(this->right != nullptr){
-                return this->right->getVal(key);
+                return this->right->getVal(key);// /!\ recursion different de smt.get() !
             }else{
                 return 0;
             }
