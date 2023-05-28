@@ -67,7 +67,7 @@ void Graph::wideTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, boo
 		nodes[nodesSize]= head;
 		nodesSize++;
 
-		for(Edge* lien=first->edges ; lien !=nullptr ; lien=lien->next){
+		for(Edge* lien=head->edges ; lien !=nullptr ; lien=lien->next){
 			if(visited[lien->destination->value] != true){
 				nodeQueue.push(lien->destination);
 				visited[lien->destination->value] =true;
