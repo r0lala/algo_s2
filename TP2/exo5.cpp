@@ -32,8 +32,7 @@ void splitAndMerge(Array& origin)
 	merge(first, second, origin);
 }
 
-void merge(Array& first, Array& second, Array& result)
-{
+void merge(Array& first, Array& second, Array& result){
 	int i=0;
 	int firstI=0;
 	int secondI=0;
@@ -42,18 +41,16 @@ void merge(Array& first, Array& second, Array& result)
 		if(first[firstI] <= second[secondI]){
 			result[i]=first[firstI];
 			firstI++;
-			i++;
+
 		}else{
 			result[i]=second[secondI];
 			secondI++;
-			i++;
 		}
 	}
 	while(first<first.size()){
 		result[i]=first[firstI];
 		firstI++;
 		i++;
-
 	}
 	while(secondI<second.size()){
 		result[i]=second[secondI];
