@@ -75,9 +75,9 @@ void HuffmanHeap::insertHeapNode(int heapSize, HuffmanNode *newNode)
 
     // Your code
     int i = heapSize;
-
     newNode = this->get(i);
-    while (i > 0 && this->get(i) < this->get((i - 2) / 2))
+
+    while (i > 0 && this->get(i)->frequences < this->get((i - 2) / 2)->frequences)
     {
         this->swap(i, (i - 1) / 2);
         i = (i - 2) / 2;
@@ -144,7 +144,8 @@ HuffmanNode *HuffmanHeap::extractMinNode(int heapSize)
 
     // Your code
     HuffmanNode *cell_one = this->get(0);
-    this->swap(0, heapSize - 1);
+    this->swap(0, heapSize);
+    // a voir s'il faut delete[] la cellule 
     this->heapify(heapSize, 0);
 
     return cell_one;
@@ -258,12 +259,12 @@ string huffmanDecode(const string &toDecode, const HuffmanNode &huffmanTreeRoot)
      **/
     // Your code
     string decoded = "";
-    HuffmanNode noeud = huffmanTreeRoot;
+    HuffmanNode* noeud = huffmanTreeRoot;
     
     int i=0;
     while(i < toDecode.length()){
-        if (noeud.isLeaf()==true){
-            decoded += noeud.character;
+        if (noeud->isLeaf()==true){
+            decoded += noeud->character;
             noeud = huffmanTreeRoot;
         }else{
             if (toDecode[i] == '0'){
@@ -274,7 +275,7 @@ string huffmanDecode(const string &toDecode, const HuffmanNode &huffmanTreeRoot)
             i++;
         }
     }
-    decoded += noeud.character;
+    decoded += noeud->character;
     return decoded;
 }
 
