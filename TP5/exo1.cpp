@@ -23,7 +23,6 @@ int HashTable::hash(std::string element)
     if(hash_value>this->size()){
         hash_value = hash_value % (this->size());
     }
-    
     return hash_value;
 }
 
@@ -56,8 +55,7 @@ bool HashTable::contains(std::string element)
     int hash_value = this->hash(element);
     if(this->get(hash_value) == element){
         return true;
-    }else 
-    {
+    }else{
         return false;
     }
 }

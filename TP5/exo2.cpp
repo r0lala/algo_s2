@@ -75,13 +75,12 @@ struct MapNode : public BinaryTree
         }
     }
 
-    void insertNode(string key, int value) // crée un  noeud
-    {
+    // crée un  noeud
+    void insertNode(string key, int value){
         this->insertNode(new MapNode(key, value));
     }
 
     int getVal(string key){
-        
         unsigned long int hash_value = hash(key);
         
         if(hash_value == this->key_hash){
@@ -93,10 +92,9 @@ struct MapNode : public BinaryTree
                 if(left != 0){
                     return left;
                 }
-
             }else if(this->right != nullptr){
                 return this->right->get(key);
-            }else if {
+            }else if{
                 return 0;
             }
         }
@@ -108,8 +106,7 @@ struct MapNode : public BinaryTree
     Node* get_right_child() const {return right;}
 };
 
-struct Map
-{
+struct Map{
     MapNode* root;
     Map() {
         this->root = nullptr;
@@ -120,8 +117,7 @@ struct Map
      * @param key
      * @param value
      */
-    void insert(string key, int value)
-    {
+    void insert(string key, int value){
         if(root != nullptr){
             //créer un new node
             this->root->insertNode(key, value);
@@ -136,11 +132,9 @@ struct Map
      * @param key
      * @return
      */
-    int get(string key)
-    {
+    int get(string key){
         return this->root->getVal(key);
     }
-
 };
 
 
@@ -150,10 +144,8 @@ int main(int argc, char *argv[])
 	Map map;
 
     map.insert("Yolo", 20);
-    for (std::string& name : TP5::names)
-    {
-        if (rand() % 3 == 0)
-        {
+    for (std::string& name : TP5::names){
+        if (rand() % 3 == 0){
             map.insert(name, rand() % 21);
         }
     }
