@@ -12,7 +12,6 @@ void Graph::buildFromAdjenciesMatrix(int **adjacencies, int nodeCount)
 	  * this->appendNewNode
 	  * this->nodes[i]->appendNewEdge
 	  */
-	
 	for(int nbr_n = 0 ; nbr_n < nodeCount ; nbr_n++){
 		GraphNode* noeud = new GraphNode(nbr_n);
 		this->appendNewNode(noeud);
@@ -25,7 +24,6 @@ void Graph::buildFromAdjenciesMatrix(int **adjacencies, int nodeCount)
 			}
 		}
 	}
-
 }
 
 void Graph::deepTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, bool visited[])
@@ -43,7 +41,6 @@ void Graph::deepTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, boo
 			deepTravel(lien->destination, nodes, nodesSize, visited);
 		}
 	}
-
 }
 
 void Graph::wideTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, bool visited[])
@@ -55,7 +52,7 @@ void Graph::wideTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, boo
 	 * nodeQueue.pop() -> remove first node of the queue
 	 * nodeQueue.size() -> size of the queue
 	 */
-	
+
 	std::queue<GraphNode*> nodeQueue;
 	nodeQueue.push(first);
 	visited[first->value] =true;
