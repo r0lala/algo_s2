@@ -92,9 +92,9 @@ struct MapNode : public BinaryTree
                 if(left != 0){
                     return left;
                 }
-            }else if(this->right != nullptr){
+            }if(this->right != nullptr){
                 return this->right->getVal(key);
-            }else if{
+            }else{
                 return 0;
             }
         }
